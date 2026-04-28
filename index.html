@@ -2,90 +2,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure UPI Payment</title>
+    <title>Secure UPI Donation Payment</title>
     <style>
-        body{
-            font-family: Arial, sans-serif;
-            background:#f5f5f5;
-            margin:0;
-            padding:0;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-        }
-        .box{
-            background:#fff;
-            width:90%;
-            max-width:420px;
-            padding:25px;
-            border-radius:18px;
-            box-shadow:0 8px 25px rgba(0,0,0,0.12);
-            text-align:center;
-        }
-        h2{margin-bottom:8px;}
-        p{color:#666;font-size:14px;}
-        input{
-            width:90%;
-            padding:12px;
-            margin:15px 0;
-            border:1px solid #ccc;
-            border-radius:10px;
-            font-size:16px;
-            text-align:center;
-        }
-        button{
-            width:100%;
-            padding:14px;
-            margin:8px 0;
-            border:none;
-            border-radius:10px;
-            font-size:16px;
-            cursor:pointer;
-        }
-        .qr{
-            margin-top:20px;
-        }
-        img{
-            width:180px;
-            height:180px;
-        }
-        .copy{
-            background:#eee;
-            padding:10px;
-            border-radius:8px;
-            margin-top:12px;
-            font-size:13px;
-            word-break:break-all;
-        }
+        body{font-family:Arial,sans-serif;background:#f2f2f2;margin:0;padding:0;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .box{background:#fff;width:92%;max-width:430px;padding:25px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);text-align:center;}
+        h2{margin:10px 0 5px;font-size:22px;}
+        .sub{font-size:13px;color:#666;margin-bottom:18px;line-height:1.5;}
+        input{width:90%;padding:13px;border:1px solid #ccc;border-radius:10px;font-size:16px;text-align:center;margin:10px 0 15px;}
+        button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:10px;font-size:16px;cursor:pointer;background:#111;color:#fff;}
+        .qr img{width:220px;height:220px;margin-top:12px;border:8px solid #fafafa;box-shadow:0 0 10px rgba(0,0,0,0.08);}
+        .copy{background:#efefef;padding:12px;border-radius:10px;margin-top:14px;font-size:13px;word-break:break-all;cursor:pointer;}
     </style>
 </head>
-<body><div class="box">
-    <h2>UPI Payment Gateway</h2>
-    <p>Enter amount and choose any UPI app</p><input type="number" id="amt" placeholder="Enter Amount">
+<body>
+<div class="box">
+    <h2>Secure UPI Donation</h2>
+    <div class="sub">MARY MATHA ARTS AND SCIENCE COLLEGE<br>POORVA VIDHYARTHI ASSOCIATION</div><input type="number" id="amt" placeholder="Enter Amount (Optional)">
 
 <button onclick="openGpay()">Pay with Google Pay</button>
 <button onclick="openPhonePe()">Pay with PhonePe</button>
 <button onclick="openPaytm()">Pay with Paytm</button>
 
 <div class="qr">
-    <p>Or Scan QR</p>
-    <img id="qrimg" src="" alt="QR Code">
+    <p>Or Scan Official Bank QR</p>
+    <img src="https://i.imgur.com/JkV4lQm.png" alt="Official Union Bank QR">
 </div>
 
 <div class="copy" onclick="copyUpi()">
-    QR919495318552-0168@unionbankofindia<br>
-    Tap to Copy UPI ID
+    QR919495318552-0168@unionbankofindia<br>Tap to Copy UPI ID
 </div>
 
 </div><script>
 const upiId = "QR919495318552-0168@unionbankofindia";
-const payee = "Union Bank QR";
+const payee = "MARY MATHA ARTS AND SCIENCE COLLEGE POORVA VIDHYARTHI ASSOCIATION";
 
 function buildLink(){
     let amount = document.getElementById('amt').value;
-    let txn = 'TXN' + Date.now();
-    let link = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&mc=5411&tr=${txn}&tn=Payment&cu=INR`;
+    let link = `pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&tr=QR9194953185520168&tn=Donation&cu=INR`;
     if(amount && amount > 0){
         link += `&am=${amount}`;
     }
@@ -93,31 +46,20 @@ function buildLink(){
 }
 
 function openGpay(){
-    let l = buildLink().replace('upi://','');
-    window.location.href=`intent://${l}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
+    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
 }
 
 function openPhonePe(){
-    let l = buildLink().replace('upi://','');
-    window.location.href=`intent://${l}#Intent;scheme=upi;package=com.phonepe.app;end`;
+    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=com.phonepe.app;end`;
 }
 
 function openPaytm(){
-    let l = buildLink().replace('upi://','');
-    window.location.href=`intent://${l}#Intent;scheme=upi;package=net.one97.paytm;end`;
+    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=net.one97.paytm;end`;
 }
 
 function copyUpi(){
     navigator.clipboard.writeText(upiId);
     alert('UPI ID Copied');
 }
-
-function generateQR(){
-    let qr = encodeURIComponent(buildLink());
-    document.getElementById('qrimg').src = `https://quickchart.io/qr?text=${qr}&size=200`;
-}
-
-generateQR();
-document.getElementById('amt').addEventListener('input', generateQR);
 </script></body>
 </html>
