@@ -1,65 +1,58 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure UPI Donation Payment</title>
-    <style>
-        body{font-family:Arial,sans-serif;background:#f2f2f2;margin:0;padding:0;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-        .box{background:#fff;width:92%;max-width:430px;padding:25px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.12);text-align:center;}
-        h2{margin:10px 0 5px;font-size:22px;}
-        .sub{font-size:13px;color:#666;margin-bottom:18px;line-height:1.5;}
-        input{width:90%;padding:13px;border:1px solid #ccc;border-radius:10px;font-size:16px;text-align:center;margin:10px 0 15px;}
-        button{width:100%;padding:14px;margin:8px 0;border:none;border-radius:10px;font-size:16px;cursor:pointer;background:#111;color:#fff;}
-        .qr img{width:220px;height:220px;margin-top:12px;border:8px solid #fafafa;box-shadow:0 0 10px rgba(0,0,0,0.08);}
-        .copy{background:#efefef;padding:12px;border-radius:10px;margin-top:14px;font-size:13px;word-break:break-all;cursor:pointer;}
-    </style>
+  <meta charset="UTF-8">
+  <title>UPI Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 50px;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 18px;
+      color: white;
+      background: #28a745;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #218838;
+    }
+    p {
+      margin-top: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
-<div class="box">
-    <h2>Secure UPI Donation</h2>
-    <div class="sub">MARY MATHA ARTS AND SCIENCE COLLEGE<br>POORVA VIDHYARTHI ASSOCIATION</div><input type="number" id="amt" placeholder="Enter Amount (Optional)">
 
-<button onclick="openGpay()">Pay with Google Pay</button>
-<button onclick="openPhonePe()">Pay with PhonePe</button>
-<button onclick="openPaytm()">Pay with Paytm</button>
+  <div class="box">
+    <h2>Pay via UPI</h2>
 
-<div class="qr">
-    <p>Or Scan Official Bank QR</p>
-    <img src="https://i.imgur.com/JkV4lQm.png" alt="Official Union Bank QR">
-</div>
+    <a class="btn"
+       href="upi://pay?pa=QR919495318552-0168@unionbankofindia&pn=RecipientName&cu=INR">
+       💳 Pay Now
+    </a>
 
-<div class="copy" onclick="copyUpi()">
-    QR919495318552-0168@unionbankofindia<br>Tap to Copy UPI ID
-</div>
+    <p>If the button doesn’t open, long press and choose "Open in UPI app".</p>
+  </div>
 
-</div><script>
-const upiId = "QR919495318552-0168@unionbankofindia";
-const payee = "MARY MATHA ARTS AND SCIENCE COLLEGE POORVA VIDHYARTHI ASSOCIATION";
-
-function buildLink(){
-    let amount = document.getElementById('amt').value;
-    let link = `pay?pa=${upiId}&pn=${encodeURIComponent(payee)}&tr=QR9194953185520168&tn=Donation&cu=INR`;
-    if(amount && amount > 0){
-        link += `&am=${amount}`;
-    }
-    return link;
-}
-
-function openGpay(){
-    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;end`;
-}
-
-function openPhonePe(){
-    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=com.phonepe.app;end`;
-}
-
-function openPaytm(){
-    window.location.href=`intent://${buildLink()}#Intent;scheme=upi;package=net.one97.paytm;end`;
-}
-
-function copyUpi(){
-    navigator.clipboard.writeText(upiId);
-    alert('UPI ID Copied');
-}
-</script></body>
+</body>
 </html>
