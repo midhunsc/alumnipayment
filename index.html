@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>UPI Payment</title>
+  <meta charset="UTF-8">
+  <title>UPI Payment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+      padding: 50px;
+    }
+    .box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 400px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 15px 25px;
+      font-size: 18px;
+      color: white;
+      background: #28a745;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background: #218838;
+    }
+    p {
+      margin-top: 20px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
 </head>
 <body>
 
-    <button onclick="payNow()">Pay Now</button>
+  <div class="box">
+    <h2>Pay via UPI</h2>
 
-    <div id="fallback" style="display:none;">
-        If app did not open, scan QR or copy UPI ID
-    </div>
+    <a class="btn"
+       href="upi://pay?pa=QR919495318552-0168@unionbankofindia">
+       💳 Pay Now
+    </a>
 
-    <script>
-        function payNow() {
-            window.location.href="intent://pay?pa=QR919495318552-0168@unionbankofindia&pn=Union%20Bank%20QR&mc=5411&tr=TXN91949531855201&tn=Merchant%20Payment&cu=INR#Intent;scheme=upi;end";
-
-            setTimeout(function(){
-                document.getElementById("fallback").style.display="block";
-            },1500);
-        }
-    </script>
+    <p>If the button doesn’t open, long press and choose "Open in UPI app".</p>
+  </div>
 
 </body>
 </html>
