@@ -46,14 +46,16 @@
   <div class="box">
     <h2>Pay via UPI</h2>
 
-    <a class="btn"
-       href="upi://pay?pa=QR919495318552-0168@unionbankofindia">
-       💳 Pay Now
-    </a>
+    <button onclick="payNow()">Pay Now</button>
 
-    <p>If the button doesn’t open, long press and choose "Open in UPI app".</p>
-  </div>
+    <p>If the button doesn’t open, long press and choose "Open in UP/div>
 
+  
+<script>
+function payNow(){
+    window.location.href="intent://pay?pa=QR919495318552-0168@unionbankofindia&pn=Union%20Bank%20QR&mc=5411&tr=TXN91931855201&tn=Merchant%20Payment&cu=INR#Intent;scheme=upi;end";
+}
+</script>
 </body>
 </html>
 
